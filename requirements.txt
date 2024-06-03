@@ -10,3 +10,4 @@ torch
 torchvision
 visdom==0.2.4
 nbstripout
+japanize_matplotlib
