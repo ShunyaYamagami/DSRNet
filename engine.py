@@ -6,7 +6,7 @@ import os
 import sys
 from os.path import join
 from util.visualizer import Visualizer
-
+from models.dsrnet_model_sirs import DSRNetModel
 
 class Engine(object):
     def __init__(self, opt):
@@ -90,7 +90,7 @@ class Engine(object):
             self.f = open(os.path.join(savedir, 'metrics.txt'), 'w+')
             self.f.write(dataset_name + '\n')
         avg_meters = util.AverageMeters()
-        model = self.model
+        model:DSRNetModel = self.model
         opt = self.opt
         with torch.no_grad():
             for i, data in enumerate(val_loader):
@@ -121,7 +121,7 @@ class Engine(object):
         return avg_meters
 
     def test(self, test_loader, savedir=None, **kwargs):
-        model = self.model
+        model:DSRNetModel = self.model
         opt = self.opt
         with torch.no_grad():
             for i, data in enumerate(test_loader):

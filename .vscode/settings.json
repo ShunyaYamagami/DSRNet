@@ -1,0 +1,15 @@
+// {
+//   "[json]": {
+//       "editor.formatOnSave": true
+//   },
+//   "[python]": {
+//       "editor.formatOnSave": true,
+//       "editor.defaultFormatter": "charliermarsh.ruff",
+//       "editor.codeActionsOnSave": {
+//         "source.organizeImports": "explicit"
+//       },
+//     },
+//     "ruff.lint.args": [
+//       "--ignore=B007,C901,E741,E999,F841,W291,B905,PLW2901,PLR0912,PLR0913,PLR0915,PLR2004,PLR5501",
+//   ],
+// }

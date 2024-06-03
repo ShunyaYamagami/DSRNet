@@ -1,0 +1,5 @@
+poetry.lock binary
+
+*.ipynb filter=nbstripout
+
+*.ipynb diff=ipynb

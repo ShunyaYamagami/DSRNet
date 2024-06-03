@@ -1,0 +1,33 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: Current File",
+      "type": "debugpy",
+      "request": "launch",
+      "python": "/home/yamagami/anaconda3/envs/ref/bin/python",
+      // "env": {"CUDA_VISIBLE_DEVICES": "1"},
+      "module": "test_me",
+      "console": "integratedTerminal",
+      "args": [
+        "--inet",
+        "dsrnet_s",
+        "--model",
+        "dsrnet_model_sirs",
+        "--dataset",
+        "sirs_dataset",
+        "--name",
+        "dsrnet_s_test",
+        "--hyper",
+        "--if_align",
+        "--resume",
+        "--weight_path",
+        "./weights/dsrnet_s_epoch14.pt"
+        // "--base_dir",
+        // "[YOUR_DATA_DIR]"
+      ],
+      "cwd": "/home/yamagami/works/ishida/okamoto_anormally_detection/DSRNet",
+      "justMyCode": false
+    }
+  ]
+}

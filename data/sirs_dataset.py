@@ -288,7 +288,7 @@ class RealDataset(BaseDataset):
 
     def align(self, x):
         h, w = x.height, x.width
-        h, w = h // 32 * 32, w // 32 * 32
+        h, w = h // 32 * 8, w // 32 * 8
         x = x.resize((w, h))
         return x
 
