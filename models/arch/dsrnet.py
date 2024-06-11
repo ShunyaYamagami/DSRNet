@@ -1,3 +1,4 @@
+import numpy as np
 from collections import OrderedDict
 
 import torch
@@ -197,45 +198,48 @@ class FeaturePyramidVGG(nn.Module):
             nn.Conv2d(in_channels=64, out_channels=out_channels, kernel_size=1)
         )
 
+    def adjust_shape(self, x1: torch.Tensor, x2: torch.Tensor):
+        device = x1.device
+        for i, (sp1, sp2) in enumerate(zip(x1.shape, x2.shape)):
+            if sp1 != sp2:
+                if sp1 < sp2:
+                    temp = torch.zeros([*x1.shape[:i], np.abs(sp1 - sp2), *x1.shape[i+1:]]).to(device)
+                    x1 = torch.cat([x1, temp], dim=i)
+                else:
+                    temp = torch.zeros([*x2.shape[:i], np.abs(sp1 - sp2), *x2.shape[i+1:]]).to(device)
+                    x2 = torch.cat([x2, temp], dim=i)
+        assert x1.shape == x2.shape
+        return x1, x2
+
     def forward(self, inp, vgg_feats):
         # 64,128,256,512,512
         vf1, vf2, vf3, vf4, vf5 = vgg_feats
         # 512=>512,512=>512
         f5_l, f5_r = self.block5(vf5)
         f4_l, f4_r = self.block4(vf4)
-        if f5_l.shape[2] != f4_l.shape[2]:
-            temp = torch.zeros([*f5_l.shape[:2], f4_l.shape[2] - f5_l.shape[2], *f5_l.shape[3:]]).to(f5_l.device)
-            f5_l = torch.cat([f5_l,temp ], dim=2)
-            f5_r = torch.cat([f5_r, temp], dim=2)
+        f4_l, f5_l = self.adjust_shape(f4_l, f5_l)
+        f4_r, f5_r = self.adjust_shape(f4_r, f5_r)
         f4_l, f4_r = self.ch_map4(torch.cat([f5_l, f4_l], dim=1), torch.cat([f5_r, f4_r], dim=1))
         # 256 => 256
         f3_l, f3_r = self.block3(vf3)
         # (256+256,256+256)->(128,128)
-        if f4_l.shape[2] != f3_l.shape[2]:
-            temp = torch.zeros([*f4_l.shape[:2], f3_l.shape[2] - f4_l.shape[2], *f4_l.shape[3:]]).to(f4_l.device)
-            f4_l = torch.cat([f4_l,temp ], dim=2)
-            f4_r = torch.cat([f4_r, temp], dim=2)
+        f3_l, f4_l = self.adjust_shape(f3_l, f4_l)
+        f3_r, f4_r = self.adjust_shape(f3_r, f4_r)
         f3_l, f3_r = self.ch_map3(torch.cat([f4_l, f3_l], dim=1), torch.cat([f4_r, f3_r], dim=1))
         # (128+128,128+128)->(64,64)
         f2_l, f2_r = self.block2(vf2)
-        if f3_l.shape[2] != f2_l.shape[2]:
-            temp = torch.zeros([*f3_l.shape[:2], f2_l.shape[2] - f3_l.shape[2], *f3_l.shape[3:]]).to(f3_l.device)
-            f3_l = torch.cat([f3_l,temp ], dim=2)
-            f3_r = torch.cat([f3_r, temp], dim=2)
+        f2_l, f3_l = self.adjust_shape(f2_l, f3_l)
+        f2_r, f3_r = self.adjust_shape(f2_r, f3_r)
         f2_l, f2_r = self.ch_map2(torch.cat([f3_l, f2_l], dim=1), torch.cat([f3_r, f2_r], dim=1))
         # (64+64,64+64)->(32,32)
         f1_l, f1_r = self.block1(vf1)
-        if f2_l.shape[2] != f1_l.shape[2]:
-            temp = torch.zeros([*f2_l.shape[:2], f1_l.shape[2] - f2_l.shape[2], *f2_l.shape[3:]]).to(f2_l.device)
-            f2_l = torch.cat([f2_l,temp ], dim=2)
-            f2_r = torch.cat([f2_r, temp], dim=2)
+        f1_l, f2_l = self.adjust_shape(f1_l, f2_l)
+        f1_r, f2_r = self.adjust_shape(f1_r, f2_r)
         f1_l, f1_r = self.ch_map1(torch.cat([f2_l, f1_l], dim=1), torch.cat([f2_r, f1_r], dim=1))
         # 64
         f0_l, f0_r = self.block_intro(inp, inp)
-        if f1_l.shape[2] != f0_l.shape[2]:
-            temp = torch.zeros([*f1_l.shape[:2], f0_l.shape[2] - f1_l.shape[2], *f1_l.shape[3:]]).to(f1_l.device)
-            f1_l = torch.cat([f1_l,temp ], dim=2)
-            f1_r = torch.cat([f1_r, temp], dim=2)
+        f0_l, f1_l = self.adjust_shape(f0_l, f1_l)
+        f0_r, f1_r = self.adjust_shape(f0_r, f1_r)
         f0_l, f0_r = self.ch_map0(torch.cat([f1_l, f0_l], dim=1), torch.cat([f1_r, f0_r], dim=1))
         return f0_l, f0_r
 

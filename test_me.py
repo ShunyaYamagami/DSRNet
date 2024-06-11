@@ -22,7 +22,7 @@ opt.verbose = False
 
 engine = Engine(opt)
 
-test_dataset_real = datasets.RealDataset('./comp')
+test_dataset_real = datasets.RealDataset(opt.base_dir)
 
 test_dataloader_real = datasets.DataLoader(test_dataset_real, batch_size=1, shuffle=True, num_workers=opt.nThreads,
                                            pin_memory=True)
