@@ -553,6 +553,28 @@ files = [
 ]
 
 [[package]]
+name = "dominate"
+version = "2.9.1"
+description = "Dominate is a Python library for creating and manipulating HTML documents using an elegant DOM API."
+optional = false
+python-versions = ">=3.4"
+files = [
+    {file = "dominate-2.9.1-py2.py3-none-any.whl", hash = "sha256:cb7b6b79d33b15ae0a6e87856b984879927c7c2ebb29522df4c75b28ffd9b989"},
+    {file = "dominate-2.9.1.tar.gz", hash = "sha256:558284687d9b8aae1904e3d6051ad132dd4a8c0cf551b37ea4e7e42a31d19dc4"},
+]
+
+[[package]]
+name = "einops"
+version = "0.8.0"
+description = "A new flavour of deep learning operations"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "einops-0.8.0-py3-none-any.whl", hash = "sha256:9572fb63046264a862693b0a87088af3bdc8c068fde03de63453cbbde245465f"},
+    {file = "einops-0.8.0.tar.gz", hash = "sha256:63486517fed345712a8385c100cb279108d9d47e6ae59099b07657e983deae85"},
+]
+
+[[package]]
 name = "executing"
 version = "2.0.1"
 description = "Get the currently executing AST node of a frame, and other information"
@@ -966,6 +988,20 @@ files = [
 ]
 
 [[package]]
+name = "jsonpatch"
+version = "1.33"
+description = "Apply JSON-Patches (RFC 6902)"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*, !=3.6.*"
+files = [
+    {file = "jsonpatch-1.33-py2.py3-none-any.whl", hash = "sha256:0ae28c0cd062bbd8b8ecc26d7d164fbbea9652a1a3693f3b956c1eae5145dade"},
+    {file = "jsonpatch-1.33.tar.gz", hash = "sha256:9fcd4009c41e6d12348b4a0ff2563ba56a2923a7dfee731d004e212e1ee5030c"},
+]
+
+[package.dependencies]
+jsonpointer = ">=1.9"
+
+[[package]]
 name = "jsonpointer"
 version = "3.0.0"
 description = "Identify specific nodes in a JSON document (RFC 6901)"
@@ -1336,6 +1372,70 @@ files = [
     {file = "kiwisolver-1.4.5-pp39-pypy39_pp73-win_amd64.whl", hash = "sha256:11d011a7574eb3b82bcc9c1a1d35c1d7075677fdd15de527d91b46bd35e935ee"},
     {file = "kiwisolver-1.4.5.tar.gz", hash = "sha256:e57e563a57fb22a142da34f38acc2fc1a5c864bc29ca1517a88abc963e60d6ec"},
 ]
+
+[[package]]
+name = "kornia"
+version = "0.7.2"
+description = "Open Source Differentiable Computer Vision Library for PyTorch"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "kornia-0.7.2-py2.py3-none-any.whl", hash = "sha256:411e09ccdc4efde351f90a81f35a6eb9fad3bcf58ac037cbec4d41a8364dd039"},
+    {file = "kornia-0.7.2.tar.gz", hash = "sha256:f834ccd51188d071ed286a6727471c94344ea2a718903cc6f0e56a92f9c66ac5"},
+]
+
+[package.dependencies]
+kornia-rs = ">=0.1.0"
+packaging = "*"
+torch = ">=1.9.1"
+
+[package.extras]
+dev = ["coverage", "mypy", "numpy", "onnx", "pre-commit (>=2)", "pydocstyle", "pytest (==8.1.1)", "pytest-timeout", "requests"]
+docs = ["PyYAML (>=5.1)", "furo", "kornia-moons", "matplotlib", "opencv-python", "sphinx", "sphinx-autodoc-defaultargs", "sphinx-autodoc-typehints", "sphinx-copybutton (>=0.3)", "sphinx-design", "sphinx-notfound-page", "sphinxcontrib-bibtex", "sphinxcontrib-gtagjs", "sphinxcontrib-youtube"]
+x = ["accelerate", "onnxruntime-gpu (>=1.16)"]
+
+[[package]]
+name = "kornia-rs"
+version = "0.1.3"
+description = "Low level implementations for computer vision in Rust"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "kornia_rs-0.1.3-cp310-cp310-macosx_10_12_x86_64.whl", hash = "sha256:e57fa6c44dcaf896e2b3d9afad0e67b0c6615f5274c3c48d12fe37f4ae6f2a9b"},
+    {file = "kornia_rs-0.1.3-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:530771c49b74fe70fa794ef2d5b9976c993e4dcb976b08608471949e4ef56e87"},
+    {file = "kornia_rs-0.1.3-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:0b8ef31b823c07b8ff30587c163ca280145ae867192a86ac4505bc73ae4be9a4"},
+    {file = "kornia_rs-0.1.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:ce91aa5fa6d8068c33ba53bdf3cf943cb53ad8b14b06b2812dd10f104b61a161"},
+    {file = "kornia_rs-0.1.3-cp310-none-win_amd64.whl", hash = "sha256:a3fdbec853c963722abdd421ff0ecc7ebc5eb1754cdf66cbe06ce32a0e6a804a"},
+    {file = "kornia_rs-0.1.3-cp311-cp311-macosx_10_12_x86_64.whl", hash = "sha256:5b26d97b5b763893449cbfd154fa9edc6eeaf51980654c810ca9f5a0180fa762"},
+    {file = "kornia_rs-0.1.3-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:ce2750720a9677a3900a7ba8a9ba5a8a4d6f60e30380ae0e41d3a2bf81c150b2"},
+    {file = "kornia_rs-0.1.3-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:c464114e526089ab56b29004156b559226d429285d72857aa4b89d34dbe02b22"},
+    {file = "kornia_rs-0.1.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:cf20019bf3dc4af3742c41bbfbf7f2bc62fbf25b4e0e651663dee7332a73ec5f"},
+    {file = "kornia_rs-0.1.3-cp311-none-win_amd64.whl", hash = "sha256:24f547aa8c0f70951c36f80d396ec0dbf56a81ccb9ab7444b77d9c4b2d707939"},
+    {file = "kornia_rs-0.1.3-cp312-cp312-macosx_10_12_x86_64.whl", hash = "sha256:30a2ca3a23e8eb6b9fd503adb16a1cc3147cf2a1498e501ca9db6b779ec8430d"},
+    {file = "kornia_rs-0.1.3-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:e11649b25b402dc315998f654eb78ffbc55ba844436754b84b8781301f5219eb"},
+    {file = "kornia_rs-0.1.3-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:027a2c7b43d75d41287ddcc365fd574024f2b3ab3a25427e9f3aa380d407702d"},
+    {file = "kornia_rs-0.1.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:6576c59e32a1721d53ca9712dbe62184f99e5967ca9532df4d5c0fcd762833c5"},
+    {file = "kornia_rs-0.1.3-cp312-none-win_amd64.whl", hash = "sha256:0e0a2efd31bda9ba0c934b1359bb92834b1e9ccbf67f32445c9c56677f1109e0"},
+    {file = "kornia_rs-0.1.3-cp37-cp37m-macosx_10_12_x86_64.whl", hash = "sha256:fa4e473907788807a8f9cc12e023f2c98a56cfda91fa5e4e12c309173be56fcf"},
+    {file = "kornia_rs-0.1.3-cp37-cp37m-macosx_11_0_arm64.whl", hash = "sha256:543ce2d78c1f994bf9c4a573d031a17544a52a3861dc11290282b08cd3dec132"},
+    {file = "kornia_rs-0.1.3-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:ebe498932ff56964f8a0b1ffc19061efe830a768bd88b6e7b33e71e739259b1d"},
+    {file = "kornia_rs-0.1.3-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:bd9985169610d262771ebe6665314b25d520ed999f39bb4078723c75f5b0b66c"},
+    {file = "kornia_rs-0.1.3-cp37-none-win_amd64.whl", hash = "sha256:5f032064b731cee7270701641b3760af96344896e981ff24384431e649ab5781"},
+    {file = "kornia_rs-0.1.3-cp38-cp38-macosx_10_12_x86_64.whl", hash = "sha256:f97d6bc019ce84a5ef310c92f8bf4d30dcf06e43a75434cd05d46e16862b03cf"},
+    {file = "kornia_rs-0.1.3-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:1be4c499f481f628d018a96ef6267411b05a9946636acbe0272bce3d04ab0831"},
+    {file = "kornia_rs-0.1.3-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:98a8c061c7fd5daa1a6002f07409fabd69946d34d908e614a26b7631c40e9c24"},
+    {file = "kornia_rs-0.1.3-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:8465436de7120560f6cc0baadef601764778f7f0c649d362520acb591fe21354"},
+    {file = "kornia_rs-0.1.3-cp38-none-win_amd64.whl", hash = "sha256:c2a50a171d4de3d13f9823ae38476b73b3f8fa1e27f06caf2515cc8dfae4ebb8"},
+    {file = "kornia_rs-0.1.3-cp39-cp39-macosx_10_12_x86_64.whl", hash = "sha256:7cfac9a37e433610e921b220aea6447ea3e7c6c9c7a8731641ad990419163340"},
+    {file = "kornia_rs-0.1.3-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:8804834e0d4087cd36dcd123fbb45613bf99d760b1082c9d44c811a5aae35e51"},
+    {file = "kornia_rs-0.1.3-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:4ee5e8db42e15c8aee1b0c11e52f5eac2a4b5c33f375651829c9de4ec2e90976"},
+    {file = "kornia_rs-0.1.3-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9f2f22e0b22c2ac8fc6366e6c1e7e30d726e7a836c21c551f20818066fe47a81"},
+    {file = "kornia_rs-0.1.3-cp39-none-win_amd64.whl", hash = "sha256:bf7fa9fa33f3bcb12b7dc2f20d0d599eb6231ee237734c7ca91e8b9da6e4f273"},
+    {file = "kornia_rs-0.1.3.tar.gz", hash = "sha256:e299d110774fc10f82c547fb04b1b8bf450a0514010324e7be06206d2179ceaf"},
+]
+
+[package.extras]
+dev = ["jax[cpu]", "kornia (>=0.7.2)", "numpy (==1.23.0)", "pytest"]
 
 [[package]]
 name = "lazy-loader"
@@ -1745,8 +1845,8 @@ files = [
 
 [package.dependencies]
 numpy = [
-    {version = ">=1.23.5", markers = "python_version >= \"3.11\" and python_version < \"3.12\""},
     {version = ">=1.26.0", markers = "python_version >= \"3.12\""},
+    {version = ">=1.23.5", markers = "python_version >= \"3.11\" and python_version < \"3.12\""},
 ]
 
 [[package]]
@@ -1811,8 +1911,8 @@ files = [
 
 [package.dependencies]
 numpy = [
-    {version = ">=1.23.2", markers = "python_version == \"3.11\""},
     {version = ">=1.26.0", markers = "python_version >= \"3.12\""},
+    {version = ">=1.23.2", markers = "python_version == \"3.11\""},
 ]
 python-dateutil = ">=2.8.2"
 pytz = ">=2020.1"
@@ -3190,6 +3290,27 @@ socks = ["pysocks (>=1.5.6,!=1.5.7,<2.0)"]
 zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
+name = "visdom"
+version = "0.2.4"
+description = "A tool for visualizing live, rich data for Torch and Numpy"
+optional = false
+python-versions = "*"
+files = [
+    {file = "visdom-0.2.4.tar.gz", hash = "sha256:84a911d3c8814a056d54812b381bd938cb44bcfc503a85fe0f701502bb720574"},
+]
+
+[package.dependencies]
+jsonpatch = "*"
+networkx = "*"
+numpy = ">=1.8"
+pillow = "*"
+requests = "*"
+scipy = "*"
+six = "*"
+tornado = "*"
+websocket-client = "*"
+
+[[package]]
 name = "wcwidth"
 version = "0.2.13"
 description = "Measures the displayed width of unicode strings in a terminal"
@@ -3245,4 +3366,4 @@ test = ["websockets"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "9bdf3199a2d86e44803452c2fbfa6f9dd4467ea500e409471e16bb713f7cbbdd"
+content-hash = "42c8857c2e5c23178878ba013156e79b38c23ee73afde980ae0f6167d496e68f"

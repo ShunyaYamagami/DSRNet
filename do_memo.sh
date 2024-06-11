@@ -7,7 +7,8 @@ poetry run python test_me.py \
     --if_align \
     --resume \
     --weight_path "./weights/dsrnet_s_epoch14.pt" \
-    --base_dir "patches_bad/"
+    --base_dir "datasets/patches_bad/"
+    # --base_dir "datasets/comp/"
 
 
 
