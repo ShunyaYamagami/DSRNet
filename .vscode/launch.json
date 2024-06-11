@@ -5,7 +5,7 @@
       "name": "Python: Current File",
       "type": "debugpy",
       "request": "launch",
-      "python": "/home/yamagami/anaconda3/envs/ref/bin/python",
+      "python": "/home/yamagami/.cache/pypoetry/virtualenvs/okamoto-anormally-detection-HZysbKMU-py3.11/bin/python",
       // "env": {"CUDA_VISIBLE_DEVICES": "1"},
       "module": "test_me",
       "console": "integratedTerminal",
@@ -22,9 +22,10 @@
         "--if_align",
         "--resume",
         "--weight_path",
-        "./weights/dsrnet_s_epoch14.pt"
-        // "--base_dir",
-        // "[YOUR_DATA_DIR]"
+        "./weights/dsrnet_s_epoch14.pt",
+        "--base_dir",
+        // "comp"
+        "patches_bad"
       ],
       "cwd": "/home/yamagami/works/ishida/okamoto_anormally_detection/DSRNet",
       "justMyCode": false
