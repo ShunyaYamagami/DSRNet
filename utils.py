@@ -152,3 +152,37 @@ def get_weak_reflection_parts(origin_image_p, dsrnet_s_test_l_p, dsrnet_s_test_r
             masked = draw_bbox(masked, x, y, w, h, color=(0, 0, 255), thickness=2)
 
     return origin_image, dsrnet_s_test_l, mask, masked
+
+
+#-------------------------------- 
+
+
+def combine_images(images: list[np.ndarray | Image.Image], W=8, H=5, padding=5, pad_color=(0, 0, 0), rtn_pil: bool = False) -> np.ndarray:
+    """複数の画像を結合する."""
+    assert isinstance(images, list)
+    images = [np.array(img) for img in images]
+
+    # shapeを合わせるために、マスク画像はRGBに変換
+    images = [img if img.ndim == 3 else cv2.cvtColor(img, cv2.COLOR_GRAY2RGB) for img in images]
+
+    # パディングを追加
+    images = [cv2.copyMakeBorder(img, padding, padding, padding, padding, cv2.BORDER_CONSTANT, value=pad_color) for img in images]
+
+
+    # 空白行を作らない
+    H = min(H, (len(images) - 1) // W + 1)
+    if H == 1:
+        W = len(images)
+
+    if len(images) < W * H:
+        # 画像が足りない場合は空白画像を追加する
+        images += [np.zeros_like(images[0]) for _ in range(W * H - len(images))]
+    image_grid = [images[i : i + W] for i in range(0, W * H, W)]
+
+    rows = [np.hstack(row) for row in image_grid]
+    combined_image = np.vstack(rows)
+
+    if rtn_pil:
+        return Image.fromarray(combined_image)
+    else:
+        return combined_image
