@@ -1,12 +1,11 @@
 import os
+from dataclasses import dataclass
+
 import cv2
+import japanize_matplotlib
+import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
-from dataclasses import dataclass
-import cv2
-import numpy as np
-import matplotlib.pyplot as plt
-import japanize_matplotlib
 
 
 @dataclass
@@ -21,6 +20,7 @@ class ColorRange:
     blue: Range
     yellow_strictly: Range
     yellow_loosely: Range
+
 
 COLOR_RANGE = ColorRange(
     blue=Range(np.array([90, 50, 50]), np.array([130, 255, 255])),
@@ -52,7 +52,6 @@ def to_pil(bgr_image: np.ndarray, div: float = 8) -> Image.Image:
     return Image.fromarray(cv2.cvtColor(bgr_image, cv2.COLOR_BGR2RGB)).convert("RGB").resize(shape)
 
 
-
 def run_focusing_yellow(image_origin: np.ndarray, hsv_origin: np.ndarray, color_range: ColorRange):
     image = image_origin.copy()
     hsv = hsv_origin.copy()
@@ -68,7 +67,8 @@ def run_focusing_yellow(image_origin: np.ndarray, hsv_origin: np.ndarray, color_
     return yellow_only_strict, yellow_only_loose, diff
 
 
-#-------------------------------- 
+# --------------------------------
+
 
 def draw_from_binary_mask(img: np.ndarray, mask: np.ndarray, color=np.array([255, 0, 0]), alpha=0.3) -> np.ndarray:
     # マスク領域に色を適用
@@ -107,9 +107,13 @@ def draw_bbox(image: np.ndarray, x, y, w, h, color=(0, 0, 255), thickness=2):
     cv2.rectangle(image, top_left, bottom_right, color, thickness)
     return image
 
-#-------------------------------- 
 
-def get_weak_reflection_parts(origin_image_p, dsrnet_s_test_l_p, dsrnet_s_test_r_p, dsrnet_s_test_rr_p, obj_mask=None, does_draw_bbox=False):
+# --------------------------------
+
+
+def get_weak_reflection_parts(
+    origin_image_p, dsrnet_s_test_l_p, dsrnet_s_test_r_p, dsrnet_s_test_rr_p, obj_mask=None, does_draw_bbox=False, M: int = 10
+):
     origin_image = cv2.imread(origin_image_p)
     dsrnet_s_test_l = cv2.imread(dsrnet_s_test_l_p)
     dsrnet_s_test_r = cv2.imread(dsrnet_s_test_r_p)
@@ -141,23 +145,25 @@ def get_weak_reflection_parts(origin_image_p, dsrnet_s_test_l_p, dsrnet_s_test_r
     masked = np.where(masked == 0, 255, masked)
 
     # obj binary mask to bbox; draw ground truth bbox
-    if obj_mask is not None:
-        obj_mask = cv2.resize(obj_mask, (origin_image.shape[1], origin_image.shape[0]))
-        obj_mask = cv2.cvtColor(obj_mask, cv2.COLOR_BGR2GRAY)
+    if obj_mask is not None and does_draw_bbox:
+        if obj_mask.shape[:2] != origin_image.shape[:2]:
+            obj_mask = cv2.resize(obj_mask, (origin_image.shape[1], origin_image.shape[0]))
+        if obj_mask.ndim == 3:
+            obj_mask = cv2.cvtColor(obj_mask, cv2.COLOR_BGR2GRAY)
         x, y, w, h = cv2.boundingRect(obj_mask)
-        M = 10
         x, y, w, h = x - M, y - M, w + 2 * M, h + 2 * M
 
-        if does_draw_bbox:
-            masked = draw_bbox(masked, x, y, w, h, color=(0, 0, 255), thickness=2)
+        masked = draw_bbox(masked, x, y, w, h, color=(0, 0, 255), thickness=2)
 
     return origin_image, dsrnet_s_test_l, mask, masked
 
 
-#-------------------------------- 
+# --------------------------------
 
 
-def combine_images(images: list[np.ndarray | Image.Image], W=8, H=5, padding=5, pad_color=(0, 0, 0), rtn_pil: bool = False) -> np.ndarray:
+def combine_images(
+    images: list[np.ndarray | Image.Image], W=8, H=5, padding=5, pad_color=(0, 0, 0), rtn_pil: bool = False
+) -> np.ndarray:
     """複数の画像を結合する."""
     assert isinstance(images, list)
     images = [np.array(img) for img in images]
@@ -167,7 +173,6 @@ def combine_images(images: list[np.ndarray | Image.Image], W=8, H=5, padding=5, 
 
     # パディングを追加
     images = [cv2.copyMakeBorder(img, padding, padding, padding, padding, cv2.BORDER_CONSTANT, value=pad_color) for img in images]
-
 
     # 空白行を作らない
     H = min(H, (len(images) - 1) // W + 1)

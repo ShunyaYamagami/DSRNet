@@ -7,7 +7,8 @@ poetry run python test_me.py \
     --if_align \
     --resume \
     --weight_path "./weights/dsrnet_s_epoch14.pt" \
-    --base_dir "datasets/patches_bad/"
+    --base_dir "/home/yamagami/works/ishida/okamoto_anormally_detection/datasets_okamoto/extracted_frames/VID_20240124_153649--1s/good/"
+    # --base_dir "datasets/patches_bad/"
     # --base_dir "datasets/comp/"
 
 
